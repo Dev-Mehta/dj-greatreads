@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="m-4 bg-slate-800 rounded-lg">
+<article class="p-8 prose sm:prose-md md:prose-lg lg:prose-xl prose-invert prose-a:text-green-300">
+	<h1 class="text-green-300">Hello Internet! I am Glad you're here</h1>
+	<p>
+		I am creating an app where you can read latest blogposts from various python and django related blog sources, to filter out only GOOD web content to read. Although there are platforms like dev.to & medium where you can read posts, I believe the pverall quality there is drastically decreasing & we can filter out posts by good authors here - [Suggested by the community & verified by us - editors or moderators].
+	</p>
+	<p>
+		Blogs that will be included
+		<ul class="list-disc">
+			<li><a href="https://hackernoon.com/tagged/django/feed">HackerNoon Django Feed</a></li>
+			<li><a href="https://hackernoon.com/u/raddevus">https://hackernoon.com/u/raddevus</a></li>
+			<li><a href="https://hackernoon.com/u/oleksandrkaleniuk">https://hackernoon.com/u/oleksandrkaleniuk</a></li>
+		</ul>
+	</p>
+	<h3>Have a wonderful suggestion? Submit here</h3>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<p><input required="true" placeholder="Link to RSS Feed..." class="w-full enabled:hover:border-gray-400 bg-slate-700 rounded-lg" type="url" name="link" id="id_link"></p>
+		<button type="submit" class="w-full bg-green-400 text-black rounded-md">Submit</button>
+	</form>
+	{% if message %}
+	<p>Saved Successfully!</p>
+	{% endif %}
+	{% if errors %}
+		{% for error in errors %}
+		<p>{{errors}}</p>
+		{% endfor %}
+	{% endif %}
+	
+  </article>
+</div>
+
+{% endblock %}

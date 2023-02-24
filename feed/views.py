@@ -1,32 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 
-from .forms import SubmissionForm
-
-# import feedparser
+from .models import Post
 
 
-class HomePage(TemplateView):
+class HomePage(ListView):
     template_name = "feed/home.html"
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        # ctx['feed'] = feedparser.parse("https://simplifiedweb.netlify.app/rss.xml/")
-        # print(ctx['feed']['entries'][0].keys())
-        return ctx
-
-    def post(self, request, *args, **kwargs):
-        form = SubmissionForm(self.request.POST)
-        if form.is_valid():
-            form.save()
-            return render(
-                request,
-                "feed/home.html",
-                {"form": form, "message": "Saved Successfully!"},
-            )
-        else:
-            return render(
-                request,
-                "feed/home.html",
-                {"form": form, "errors": form.errors},
-            )
+    model = Post
+    paginate_by = 5
+    context_object_name = "posts"
+    ordering = ["-pub_at"]

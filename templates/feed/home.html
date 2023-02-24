@@ -1,35 +1,92 @@
 {% extends "base.html" %}
-{% block body %}
-<div class="m-4 bg-slate-800 rounded-lg">
-<article class="p-8 prose sm:prose-md md:prose-lg lg:prose-xl prose-invert prose-a:text-green-300">
-	<h1 class="text-green-300">Hello Internet! I am Glad you're here</h1>
-	<p>
-		I am creating an app where you can read latest blogposts from various python and django related blog sources, to filter out only GOOD web content to read. Although there are platforms like dev.to & medium where you can read posts, I believe the pverall quality there is drastically decreasing & we can filter out posts by good authors here - [Suggested by the community & verified by us - editors or moderators].
-	</p>
-	<p>
-		Blogs that will be included
-		<ul class="list-disc">
-			<li><a href="https://hackernoon.com/tagged/django/feed">HackerNoon Django Feed</a></li>
-			<li><a href="https://hackernoon.com/u/raddevus">https://hackernoon.com/u/raddevus</a></li>
-			<li><a href="https://hackernoon.com/u/oleksandrkaleniuk">https://hackernoon.com/u/oleksandrkaleniuk</a></li>
-		</ul>
-	</p>
-	<h3>Have a wonderful suggestion? Submit here</h3>
-	<form action="" method="POST">
-		{% csrf_token %}
-		<p><input required="true" placeholder="Link to RSS Feed..." class="w-full enabled:hover:border-gray-400 bg-slate-700 rounded-lg" type="url" name="link" id="id_link"></p>
-		<button type="submit" class="w-full bg-green-400 text-black rounded-md">Submit</button>
-	</form>
-	{% if message %}
-	<p>Saved Successfully!</p>
-	{% endif %}
-	{% if errors %}
-		{% for error in errors %}
-		<p>{{errors}}</p>
-		{% endfor %}
-	{% endif %}
-	
-  </article>
+{% block body %} 
+<div class="m-4 p-4">
+	<article class="prose prose-invert sm:prose-md md:prose-lg lg:prose-xl">
+		<h1 class="font-extrabold">Welcome to GreatReads!</h2>
+		<p class="text-lg">I am creating an app where you can read latest blogposts from various high-quality blog sources, to filter out only GOOD web content to read</p>
+		<p class="text-lg">
+			Sources:
+			<ul>
+				<li>HackerNoon Top Stories(Top 100)</li>
+				<li>HackerNoon Django Tagged Top Stories</li>
+				<li>SimplifiedWeb</li>
+			</ul>
+		</p>
+	</article>
 </div>
+{% if posts %}
+<div class="bg-neutral p-4 m-4 rounded-lg infinite-container">
+{% for entry in posts %}
+  <card class="infinite-item">
+	<p>&nbsp;</p>
+	<header class="flex font-light text-sm">
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-90 -ml-2"  viewBox="0 0 24 24" stroke="#DCFCE7">
+		  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+		</svg>
+		<p class="text-white">Published On: {{entry.pub_at}}</p>
+	</header>
+    <!-- Title -->
+    <h2 class="font-extrabold text-green-200 text-3xl mt-2">{{entry.title}}</h2>
+
+    <!-- Tags -->
+    <p class="mt-2 text-white">
+      By: {% if entry.author %}
+      <span class="text-green-100"> {{entry.author}}</span>
+      {% else %}
+      <span class="text-green-200"> {{entry.netloc}}</span>
+      {% endif %}
+    </p>
+
+    <!-- Description -->
+    <h3 class="font-bold text-xl mt-4 text-white">Intro</h3>
+    <p class="font-light text-neutral-300">{{entry.summary|truncatewords:40}}</p>
+
+    <!-- Button -->
+    <a
+      href="{{entry.link}}"
+      class="bg-green-300 text-white font-semibold py-2 px-5 text-sm mt-6 inline-flex items-center rounded-md group"
+    >
+      <p class="text-neutral-900">READ MORE</p>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 ml-1 group-hover:translate-x-2 delay-100 duration-200 ease-in-out"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="#000000"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 5l7 7-7 7"
+        />
+      </svg>
+    </a>
+  </card>
+  <p>&nbsp;</p>
+{% endfor %}
+</div>
+{% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+{% endif %}
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js" integrity="sha512-m3kH21aSkKrGeoqdb7IP7rlu1VcQee5VrjLQepeSOp5M05Wl6HwqJ1Jwo14EHOuBg77pkAlBtQuVMPVeXzfueg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  var infinite = new Waypoint.Infinite({
+    element: $(".infinite-container")[0],
+    handler: function (direction) {},
+    offset: "bottom-in-view",
+
+    onBeforePageLoad: function () {
+      $(".spinner-border").show();
+    },
+    onAfterPageLoad: function () {
+      $(".spinner-border").hide();
+	  $(".infinite-container")[0];
+    },
+  });
+</script>
 
 {% endblock %}

@@ -2,9 +2,11 @@ asgiref==3.6.0
 cfgv==3.3.1
 distlib==0.3.6
 Django==3.2.18
+django-environ==0.9.0
 feedparser==6.0.10
 feedreader==0.3.1
 filelock==3.9.0
+gunicorn==20.1.0
 identify==2.5.18
 importlib-metadata==6.0.0
 lxml==4.9.2

@@ -1,17 +1,26 @@
 {% extends "base.html" %}
-{% block body %} 
+{% block body %}
 <div class="m-4 p-4">
-	<article class="prose prose-invert prose-lg md:prose-lg lg:prose-xl">
+	<article class="prose prose-invert prose-lg md:prose-lg lg:prose-xl" style="max-width: 100%">
 		<h1 class="font-extrabold text-3xl">Welcome to GreatReads!</h2>
 		<p class="text-lg mt-4">I am creating an app where you can read latest blogposts from various high-quality blog sources, to filter out only GOOD web content to read</p>
 		<p class="text-lg mt-4">
 			Sources:
 			<ul class="list-disc">
-				<li>HackerNoon Top Stories(Top 100)</li>
-				<li>HackerNoon Django Tagged Top Stories</li>
+				<li>HackerNoon #Django Tagged Top Stories</li>
+				<li>HackerNoon #Python Tagged Top Stories</li>
+        <li>Daily HackerNoon Top 20 stories</li>
+        <li>testdriven.io/blog/</li>
 				<li>SimplifiedWeb</li>
 			</ul>
 		</p>
+    <p class="text-lg mt-4">
+      TODO
+      <ul class="list-disc">
+        <li>Add authentication so that users can add their personal feeds instead of the ones above.</li>
+        <li>Automate the parsing of feeds. Currently I am parsing the rss and creating model instances from them.</li>
+      </ul>
+    </p>
 	</article>
 </div>
 {% if posts %}

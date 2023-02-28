@@ -1,4 +1,35 @@
-# dj-greatreads
+# Django GreatReads
+[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
  I am creating an app where you can read latest blogposts from various python and django related blog sources, to filter out only GOOD web content to read
 
-![image](https://user-images.githubusercontent.com/55938019/220947378-3ffc1f5c-8968-4cce-ab40-bcc0fe45aa76.png)
+## How to run
+
+Make sure you have docker installed.
+
+1. Clone the repo
+```
+$ git clone https://github.com/Dev-Mehta/dj-greatreads
+```
+
+2. Build image and run with docker container
+
+```
+$ docker compose up --build
+```
+
+3. To stop the container
+```
+$ docker compose down
+```
+### Test coverage
+
+To run the tests, check your test coverage, and generate an HTML coverage report:
+
+    $ coverage run -m pytest
+    $ coverage html
+    $ open htmlcov/index.html
+
+#### Running tests with pytest
+
+    $ pytest

@@ -16,4 +16,5 @@ RUN pip install -r requirements.txt
 COPY . /usr/src/app
 
 EXPOSE 8000
+RUN python manage.py migrate
 RUN python ./feed/utils.py

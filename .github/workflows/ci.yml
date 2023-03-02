@@ -38,30 +38,9 @@ jobs:
         run:  pytest
 
       - name: Codecov
-        run:  coverage run -m pytest & coverage xml
+        run:  coverage run -m pytest . & coverage xml
 
       - name: Display coverage
         uses: ewjoachim/coverage-comment-action@v1
         with:
           GITHUB_TOKEN: ${{ github.token }}
-
-          # Path and filename of the coverage XML file to analyze.
-          COVERAGE_FILE: "coverage.xml"
-
-          # Whether or not a badge will be generated and stored.
-          BADGE_ENABLED: "true"
-
-          # Name of the json file containing badge informations stored in the repo wiki.
-          BADGE_FILENAME: coverage-comment-badge.json
-
-          # If the coverage percentage is above or equal to this value, the badge will be green.
-          MINIMUM_GREEN: 100
-
-          # Same with orange. Below is red.
-          MINIMUM_ORANGE: 70
-
-          # [Advanced] Specify a different template for the comments that will be written on the PR.
-          COMMENT_TEMPLATE: ""
-
-          # [Advanced] Additional args to pass to diff cover (one per line)
-          DIFF_COVER_ARGS: ""

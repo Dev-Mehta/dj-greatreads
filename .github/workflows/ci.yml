@@ -38,10 +38,7 @@ jobs:
         run:  pytest
 
       - name: Codecov
-        run:  coverage xml
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        run:  coverage run -m pytest & coverage xml
 
       - name: Display coverage
         uses: ewjoachim/coverage-comment-action@v1

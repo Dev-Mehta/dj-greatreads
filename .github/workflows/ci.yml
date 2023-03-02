@@ -38,7 +38,7 @@ jobs:
         run:  pytest
 
       - name: Codecov
-        run:  coverage run -m pytest . & coverage xml
+        run:  coverage run -m pytest . && coverage xml
 
       - name: Display coverage
         uses: ewjoachim/coverage-comment-action@v1

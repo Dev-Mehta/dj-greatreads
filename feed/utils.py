@@ -1,13 +1,16 @@
 import os
 import sys
 from datetime import datetime
+from pathlib import Path
 from time import mktime
 from urllib.parse import urlparse
 
 import django
 import feedparser
 
-sys.path.append("/usr/src/app/")
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
+
 os.environ["DJANGO_SETTINGS_MODULE"] = "core.settings"
 
 django.setup()

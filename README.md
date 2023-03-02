@@ -18,6 +18,8 @@ $ git clone https://github.com/Dev-Mehta/dj-greatreads
 $ docker compose up --build
 ```
 
+> Avoid --build if you have already built it once, and there are no changes made to the source code.
+
 3. To stop the container
 ```
 $ docker compose down

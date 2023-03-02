@@ -18,7 +18,7 @@ class Post(models.Model):
     pub_at = models.DateField()
 
     def __str__(self) -> str:
-        return f"{self.author} - {self.title}"
+        return f"{self.netloc} - {self.title}"
 
     @property
     def netloc(self) -> str:

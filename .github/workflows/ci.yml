@@ -39,6 +39,12 @@ jobs:
 
       - name: Run Django Tests
         run:  docker-compose -f docker-compose.yml run --rm web pytest
+        
+      - name: Codecov
+        run:  docker-compose -f docker-compose.yml run web coverage run -m pytest
 
       - name: Tear down the Stack
         run:  docker-compose -f docker-compose.yml down
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3

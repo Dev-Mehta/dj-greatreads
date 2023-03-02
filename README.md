@@ -1,5 +1,5 @@
 # Django GreatReads
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black) ![GitHub issues](https://img.shields.io/github/issues/Dev-Mehta/dj-greatreads) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Dev-Mehta/dj-greatreads) ![GitHub](https://img.shields.io/github/license/Dev-Mehta/dj-greatreads) ![GitHub Repo stars](https://img.shields.io/github/stars/Dev-Mehta/dj-greatreads?style=social) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Dev-Mehta/dj-greatreads)
 
  I am creating an app where you can read latest blogposts from various python and django related blog sources, to filter out only GOOD web content to read
 

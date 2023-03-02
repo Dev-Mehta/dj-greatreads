@@ -32,19 +32,39 @@ jobs:
         run:   echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Build the Stack
-        run:  docker-compose -f docker-compose.yml build
-
-      - name: Run DB Migrations
-        run:  docker-compose -f docker-compose.yml run --rm web python manage.py migrate
+        run:  pip install -r requirements.txt && python manage.py migrate && python ./feed/utils.py
 
       - name: Run Django Tests
-        run:  docker-compose -f docker-compose.yml run --rm web pytest
-        
-      - name: Codecov
-        run:  docker-compose -f docker-compose.yml run web coverage run -m pytest
+        run:  pytest
 
-      - name: Tear down the Stack
-        run:  docker-compose -f docker-compose.yml down
-      
+      - name: Codecov
+        run:  coverage xml
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+
+      - name: Display coverage
+        uses: ewjoachim/coverage-comment-action@v1
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+
+          # Path and filename of the coverage XML file to analyze.
+          COVERAGE_FILE: "coverage.xml"
+
+          # Whether or not a badge will be generated and stored.
+          BADGE_ENABLED: "true"
+
+          # Name of the json file containing badge informations stored in the repo wiki.
+          BADGE_FILENAME: coverage-comment-badge.json
+
+          # If the coverage percentage is above or equal to this value, the badge will be green.
+          MINIMUM_GREEN: 100
+
+          # Same with orange. Below is red.
+          MINIMUM_ORANGE: 70
+
+          # [Advanced] Specify a different template for the comments that will be written on the PR.
+          COMMENT_TEMPLATE: ""
+
+          # [Advanced] Additional args to pass to diff cover (one per line)
+          DIFF_COVER_ARGS: ""

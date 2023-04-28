@@ -31,5 +31,5 @@ six==1.16.0
 sqlparse==0.4.3
 tomli==2.0.1
 typing_extensions==4.5.0
-virtualenv==20.19.0
+virtualenv==20.23.0
 zipp==3.14.0
